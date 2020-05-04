@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>TravellerUtils.Libraries.Common</AssemblyName>
+    <RootNamespace>TravellerUtils.Libraries.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Generators\SatelliteGenerators\" />
+  </ItemGroup>
+
+</Project>
