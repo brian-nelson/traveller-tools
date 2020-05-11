@@ -1,11 +1,13 @@
 ﻿using System;
+using TravellerUtils.Libraries.Common.Enums;
 using TravellerUtils.Libraries.Common.Helpers;
+using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class OrbitRangeGenerator
     {
-        public static double Generate(short orbitNumber)
+        public static Distance Generate(short orbitNumber)
         {
             double r;
 
@@ -35,7 +37,13 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
                     throw new Exception("Unexpected orbit");
             }
 
-            return r;
+            Distance output = new Distance
+            {
+                Value = r, 
+                Units = DistanceUnits.AstronomicalUnit
+            };
+
+            return output;
         }
     }
 }

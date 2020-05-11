@@ -1,17 +1,19 @@
 ﻿using System;
+using TravellerUtils.Libraries.Common.Helpers;
+using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class TimeGenerator
     {
-        public static double GenerateDayTime(short atmosphere, double rotationPeriod, double luminosity, double distance,
+        public static double GenerateDayTime(short atmosphere, double rotationPeriod, double luminosity, Distance distance,
             double temperature)
         {
             double x;
             double max;
             double dayLength = rotationPeriod / 2;
 
-            var r = luminosity / Math.Sqrt(distance);
+            var r = luminosity / Math.Sqrt(distance.ToAstronomicalUnits().Value);
 
             switch (atmosphere)
             {

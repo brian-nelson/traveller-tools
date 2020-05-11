@@ -6,8 +6,4 @@
     <RootNamespace>TravellerUtils.Libraries.Common</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Generators\SatelliteGenerators\" />
-  </ItemGroup>
-
 </Project>

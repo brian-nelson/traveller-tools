@@ -6,7 +6,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
     public static class SeasonsGenerator
     {
         public static Seasons Generate(int planetSize, double axialTilt, int axialTiltEffect, double orbitFactorEccentricity, 
-            double meanTemperature, double luminosity, double orbitalDistance, double rotationPeriod, short atmosphere)
+            double meanTemperature, double luminosity, Distance orbitalDistance, double rotationPeriod, short atmosphere)
         {
             Seasons output = new Seasons
             {

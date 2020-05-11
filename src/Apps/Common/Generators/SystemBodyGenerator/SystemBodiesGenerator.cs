@@ -9,10 +9,10 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class SystemBodiesGenerator
     {
-        public static List<ISystemBody> Generate(List<Star> stars, int starToGenerate)
+        public static List<ISystemBody> Generate(StellarSystem stellarSystem, int starToGenerate)
         {
-            var star = stars[starToGenerate - 1];
-            var orbits = OrbitsGenerator.Generate(stars);
+            var star = stellarSystem.Stars[starToGenerate - 1];
+            var orbits = OrbitsGenerator.Generate(stellarSystem);
 
             List<ISystemBody> output = new List<ISystemBody>();
 
@@ -48,8 +48,8 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 
                 if (o.OccupiedType != null)
                 {
-                    var systemBody = SystemBodyGenerator.Generate((short)i, o.Range, o.OccupiedType, o.OrbitType,
-                        star.Classification, star.Mass, star.Luminosity, star.HabitableZone);
+                    var systemBody = SystemBodyGenerator.Generate((short)i, o.OrbitalDistance, o.OccupiedType, o.OrbitType,
+                        star, stellarSystem);
                     output.Add(systemBody);
                 }
             }

@@ -1,40 +1,54 @@
-﻿using TravellerUtils.Libraries.Common.Constants;
+﻿using System;
+using TravellerUtils.Libraries.Common.Constants;
 using TravellerUtils.Libraries.Common.Helpers;
+using TravellerUtils.Libraries.Common.Interfaces;
 using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class GasGiantGenerator
     {
-        public static GasGiant Generate(double orbitPeriod, double orbitalDistance, int orbitNumber, string occupiedType, 
-            string orbitType, string stellarClassification, double stellarMass, double luminosity, int habitableZone)
+        public static GasGiant Generate(Distance orbitalDistance, short orbitNumber, string occupiedType, 
+            string orbitType, IStar parentStar, double combinedLuminosity)
         {
             int size;
 
-            var output = new GasGiant { OrbitalDistance = orbitalDistance };
+            var gasGiant = new GasGiant 
+            { 
+                OrbitalDistance = orbitalDistance, 
+                Density = PlanetDensities.Low
+            };
 
             if (DieRoll.Roll1D6() < 3)
             {
                 //Small
                 size = -1;
-                output.Description = "Small";
-                output.Diameter = PlanetSizeGenerator.Generate(occupiedType, size);
+                gasGiant.Description = "Small";
             }
             else
             {
                 //Large
                 size = -2;
-                output.Description = "Large";
-                output.Diameter = PlanetSizeGenerator.Generate(occupiedType, size);
+                gasGiant.Description = "Large";
             }
 
-            var satellites = SatellitesGenerator.Generate(
-                size, orbitalDistance, occupiedType, orbitNumber, orbitType, stellarClassification,
-                output.Diameter, PlanetDensities.Low, luminosity, habitableZone);
+            gasGiant.Diameter = PlanetDiameterGenerator.Generate(occupiedType, size);
+            gasGiant.Mass = PlanetMassGenerator.Generate(gasGiant.Diameter, gasGiant.Density);
+            gasGiant.OrbitNumber = orbitNumber;
+            gasGiant.OrbitalDistance = orbitalDistance;
+            gasGiant.OrbitEccentricity = OrbitalEccentricityGenerator.Generate(); 
+            
+            gasGiant.OrbitalPeriod = OrbitalPeriodGenerator.Generate(parentStar, gasGiant);
+            
+            gasGiant.RotationPeriod = RotationPeriodGenerator.Generate(parentStar.Mass, gasGiant.OrbitalDistance);
+            gasGiant.AxialTilt = AxialTiltGenerator.Generate();
+            gasGiant.AxialTiltEffect = TiltEffectGenerator.Generate(gasGiant.AxialTilt);
+            
+            var satellites = SatellitesGenerator.Generate(parentStar, gasGiant, combinedLuminosity);
 
-            output.OrbitingBodies.AddRange(satellites);
+            gasGiant.OrbitingBodies.AddRange(satellites);
 
-            return output;
+            return gasGiant;
         }
     }
 }

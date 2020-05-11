@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using TravellerUtils.Libraries.Common.Constants;
+using TravellerUtils.Libraries.Common.Helpers;
+using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class OrbitTypeGenerator
     {
-        public static string Generate(double range, double luminosity, double companionLuminosity)
+        public static string Generate(Distance orbitalDistance, double luminosity, double companionLuminosity)
         {
             var L = luminosity;
-            var O = SystemConstants.HabitNum / Math.Sqrt(range);
+            var O = SystemConstants.HabitNum / Math.Sqrt(orbitalDistance.ToAstronomicalUnits().Value);
             var LO = L * O;
 
             LO = LO + companionLuminosity;

@@ -1,11 +1,13 @@
 ﻿using System;
 using TravellerUtils.Libraries.Common.Constants;
+using TravellerUtils.Libraries.Common.Enums;
+using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators.StellarSystemAttributes
 {
     public static class StellarMassGenerator
     {
-        public static double Generate(string classification, string decimalNotation, string luminosity)
+        public static Mass Generate(string classification, string decimalNotation, string luminosity)
         {
             int starSize = 0;
 
@@ -71,7 +73,14 @@ namespace TravellerUtils.Libraries.Common.Generators.StellarSystemAttributes
             }
 
             double result = (((b - a) / 5) * x) + a;
-            return result;
+
+            Mass output = new Mass
+            {
+                Value = result, 
+                Units = MassUnits.StellarMass
+            };
+
+            return output;
         }
     }
 }

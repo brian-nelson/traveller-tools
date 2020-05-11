@@ -1,11 +1,13 @@
 ﻿using TravellerUtils.Libraries.Common.Constants;
+using TravellerUtils.Libraries.Common.Enums;
 using TravellerUtils.Libraries.Common.Helpers;
+using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
-    public static class PlanetSizeGenerator
+    public static class PlanetDiameterGenerator
     {
-        public static double Generate(string occupiedType, int size)
+        public static Distance Generate(string occupiedType, int size)
         {
             double planetDiameter = 0;
 
@@ -62,7 +64,9 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
                 }
             }
 
-            return planetDiameter;
+            Distance distance = new Distance {Value = planetDiameter, Units = DistanceUnits.Kilometer};
+
+            return distance;
         }
     }
 }

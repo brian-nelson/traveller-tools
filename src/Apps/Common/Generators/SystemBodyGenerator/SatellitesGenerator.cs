@@ -5,19 +5,15 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class SatellitesGenerator
     {
-        public static List<ISystemBody> Generate(int worldSize, double orbitalDistance, 
-            string occupiedType, int orbitNumber, string orbitType, string stellarClassification, 
-            double planetDiameter, string planetDensity, double luminosity, int habitableZone)
+        public static List<IOrbitingBody> Generate(IStar parentStar, IStellarOrbitingBody parentBody, double combinedLuminosity)
         {
-            List<ISystemBody> satellites = new List<ISystemBody>();
+            List<IOrbitingBody> satellites = new List<IOrbitingBody>();
 
-            int numberOfSatellites = NumberOfSatellitesGenerator.Generate(occupiedType, worldSize);
+            int numberOfSatellites = NumberOfSatellitesGenerator.Generate(parentBody.OrbitOccupiedType, parentBody.Size);
 
             for (int i = 0; i < numberOfSatellites; i++)
             {
-                var satellite = SatelliteGenerator.Generate(worldSize, orbitalDistance, 
-                    occupiedType, orbitNumber, orbitType, stellarClassification, 
-                    planetDiameter, planetDensity, luminosity, habitableZone);
+                var satellite = SatelliteGenerator.Generate(parentStar, parentBody);
 
                 satellites.Add(satellite);
             }

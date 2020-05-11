@@ -3,21 +3,28 @@ using TravellerUtils.Libraries.Common.Interfaces;
 
 namespace TravellerUtils.Libraries.Common.Objects
 {
-    public class Star : ISystemBody
+    public class Star : IStar
     {
         public Star()
         {
-            OrbitingBodies = new List<ISystemBody>();
+            OrbitingBodies = new List<IOrbitingBody>();
         }
 
+        //ISystemBody
+        public short Size { get; set; }
+        public string Density { get; set; }
+        public Mass Mass { get; set; }
+        public Distance Diameter { get; set; }
+        public List<IOrbitingBody> OrbitingBodies { get; set; }
+
+        //IStar
         public string Classification { get; set; }
         public string LuminosityClass { get; set; }
         public string DecimalNotation { get; set; }
-        public double Mass { get; set; }
         public double Luminosity { get; set; }
-        public short? Orbit { get; set; }
-        public int HabitableZone { get; set; }
+        public short HabitableZone { get; set; }
 
-        public List<ISystemBody> OrbitingBodies { get; set; }
+        public short? Orbit { get; set; }
+
     }
 }

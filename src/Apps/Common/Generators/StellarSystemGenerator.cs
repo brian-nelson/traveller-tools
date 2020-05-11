@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using TravellerUtils.Libraries.Common.Constants;
 using TravellerUtils.Libraries.Common.Generators.StellarSystemAttributes;
 using TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator;
+using TravellerUtils.Libraries.Common.Interfaces;
 using TravellerUtils.Libraries.Common.Objects;
 
 namespace TravellerUtils.Libraries.Common.Generators
@@ -16,13 +19,16 @@ namespace TravellerUtils.Libraries.Common.Generators
             output.SystemNature = SystemNatureGenerator.Generate();
             
             //Add Primary
-            output.Stars.Add(StarGenerator.Generate(1));
+            IStar primary = StarGenerator.Generate(1);
+            output.Stars.Add(primary);
+            output.CombinedLuminosity = primary.Luminosity;
             
             //Add Secondary Star
             if (output.SystemNature == SystemNature.Binary
                 || output.SystemNature == SystemNature.Trinary)
             {
-                output.Stars.Add(StarGenerator.Generate(2, output.Stars[0]));
+                IStar star = StarGenerator.Generate(2, output.Stars[0]);
+                output.Stars.Add(star);
             }
 
             //Add Third Star
@@ -32,7 +38,7 @@ namespace TravellerUtils.Libraries.Common.Generators
             }
             
             //Generate primary start bodies
-            var systemBodies = SystemBodiesGenerator.Generate(output.Stars, 0);
+            var systemBodies = SystemBodiesGenerator.Generate(output, 0);
 
 
             return output;

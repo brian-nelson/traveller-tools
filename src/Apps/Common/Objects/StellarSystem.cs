@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TravellerUtils.Libraries.Common.Interfaces;
 
 namespace TravellerUtils.Libraries.Common.Objects
 {
@@ -6,8 +7,7 @@ namespace TravellerUtils.Libraries.Common.Objects
     {
         public StellarSystem()
         {
-            Stars = new List<Star>();
-            SystemBodies = new List<SystemBody>();
+            Stars = new List<IStar>();
         }
         public int X { get; set; }
         public int Y { get; set; }
@@ -20,10 +20,9 @@ namespace TravellerUtils.Libraries.Common.Objects
         public byte Population { get; set; }
         public byte TechLevel { get; set; }
         public byte Government { get; set; }
+
+        public double CombinedLuminosity { get; set; }
         
-        public List<Star> Stars { get; set; }
-
-        public List<SystemBody> SystemBodies { get; set; }
-
+        public List<IStar> Stars { get; set; }
     }
 }
