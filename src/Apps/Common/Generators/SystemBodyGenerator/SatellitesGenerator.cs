@@ -5,7 +5,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class SatellitesGenerator
     {
-        public static List<IOrbitingBody> Generate(IStar parentStar, IStellarOrbitingBody parentBody, double combinedLuminosity)
+        public static void Generate(IStar parentStar, IStellarOrbitingBody parentBody, double combinedLuminosity)
         {
             List<IOrbitingBody> satellites = new List<IOrbitingBody>();
 
@@ -13,12 +13,10 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 
             for (int i = 0; i < numberOfSatellites; i++)
             {
-                var satellite = SatelliteGenerator.Generate(parentStar, parentBody);
+                var satellite = SatelliteGenerator.Generate(parentStar, parentBody, combinedLuminosity);
 
-                satellites.Add(satellite);
+                parentBody.OrbitingBodies.Add(satellite.OrbitNumber, satellite);
             }
-            
-            return satellites;
         }
     }
 }

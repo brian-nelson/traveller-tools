@@ -8,6 +8,12 @@ namespace TravellerUtils.Libraries.Common.Objects
         public double Value { get; set; }
         public MassUnits Units { get; set; }
 
+        public Mass(double value, MassUnits units)
+        {
+            Value = value;
+            Units = units;
+        }
+
         public static Mass operator +(Mass a, Mass b)
         {
             Mass tempB = b.To(a.Units);

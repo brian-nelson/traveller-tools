@@ -1,5 +1,4 @@
-﻿using System;
-using TravellerUtils.Libraries.Common.Constants;
+﻿using TravellerUtils.Libraries.Common.Constants;
 using TravellerUtils.Libraries.Common.Generators.SatelliteGenerators;
 using TravellerUtils.Libraries.Common.Helpers;
 using TravellerUtils.Libraries.Common.Interfaces;
@@ -9,7 +8,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class SatelliteGenerator
     {
-        public static IOrbitingBody Generate(IStar parentStar, IStellarOrbitingBody parentBody)
+        public static IOrbitingBody Generate(IStar parentStar, IStellarOrbitingBody parentBody, double combinedLuminosity)
         {
             Moon moon = new Moon();
 
@@ -20,7 +19,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
             moon.Mass = PlanetMassGenerator.Generate(moon.Diameter, moon.Density);
 
             //Orbital
-            moon.OrbitalDistance = (parentBody.Diameter / 2) * SatelliteOrbitGenerator.Generate();
+            moon.OrbitalDistance = SatelliteOrbitDistanceGenerator.Generate(parentBody);
             moon.OrbitalPeriod = OrbitalPeriodGenerator.Generate(parentBody, moon);
             moon.OrbitFactor = OrbitFactorGenerator.Generate(parentBody);
             moon.OrbitEccentricity = OrbitalEccentricityGenerator.Generate();
@@ -28,24 +27,27 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
             moon.AxialTilt = AxialTiltGenerator.Generate();
             moon.AxialTiltEffect = TiltEffectGenerator.Generate(moon.AxialTilt);
             
+            //Environmental
             moon.Atmosphere = AtmosphereGenerator.Generate(parentBody.OrbitType, parentBody.Size);
             moon.AtmosphereCode = AtmosphereCodeGenerator.Generate(moon.Atmosphere); 
             moon.Hydrographics = HydrographicsGenerator.Generate(parentBody.OrbitType, moon.Size, moon.Atmosphere);
-            
-            int maxPopulation = MaxPopulationGenerator.Generate(parentBody.OrbitNumber, parentBody.OrbitType, moon.Size,
+            moon.MaxPopulation = MaxPopulationGenerator.Generate(parentBody.OrbitNumber, parentBody.OrbitType, moon.Size,
                 moon.Atmosphere, moon.Hydrographics, parentStar.HabitableZone);
+            moon.EnergyAbsorptionFactor = EnergyAbsorptionGenerator.Generate(parentBody.OrbitType, moon.Hydrographics, moon.AtmosphereCode);
+            moon.GreenhouseFactor = GreenhouseTables.GreenHouse[moon.Atmosphere];
 
-            double energyAbsorptionFactor = EnergyAbsorptionGenerator.Generate(parentBody.OrbitType, moon.Hydrographics, moon.AtmosphereCode);
+            if (SystemConstants.UseGaiaFactor
+                && moon.MaxPopulation > 5)
+            {
+                moon.EnergyAbsorptionFactor = GaiaFactorGenerator.Generate(combinedLuminosity, moon.OrbitFactor, moon.GreenhouseFactor, moon.EnergyAbsorptionFactor);
+            }
 
+            moon.MeanTemperature = MeanTemperatureGenerator.Generate(combinedLuminosity, moon.OrbitFactor, moon.EnergyAbsorptionFactor, moon.GreenhouseFactor);
 
+            moon.Seasons = SeasonsGenerator.Generate(moon.Size, moon.AxialTilt, moon.AxialTiltEffect, moon.OrbitFactor,
+                moon.MeanTemperature, combinedLuminosity, moon.OrbitalDistance, moon.RotationPeriod, moon.Atmosphere);
 
-
-            return null;
+            return moon;
         }
-
-
-        
-
-        
     }
 }

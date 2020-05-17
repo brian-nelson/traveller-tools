@@ -1,4 +1,5 @@
 ﻿using System;
+using TravellerUtils.Libraries.Common.Constants;
 using TravellerUtils.Libraries.Common.Enums;
 using TravellerUtils.Libraries.Common.Objects;
 
@@ -32,6 +33,9 @@ namespace TravellerUtils.Libraries.Common.Helpers
                     break;
                 case DistanceUnits.Parsec:
                     lengthInMeters = distance.Value * 3.086e+16;
+                    break;
+                case DistanceUnits.StellarRadius:
+                    lengthInMeters = distance.Value * SystemBodyConstants.SunRadius * 1000;
                     break;
                 default:
                     throw new Exception("Unknown distance units");
@@ -164,6 +168,26 @@ namespace TravellerUtils.Libraries.Common.Helpers
             };
         }
 
+        public static Distance ToStellarRadius(this Distance distance)
+        {
+            if (distance.Units == DistanceUnits.StellarRadius)
+            {
+                return new Distance()
+                {
+                    Value = distance.Value,
+                    Units = distance.Units
+                };
+            }
+
+            Distance inMeters = distance.ToMeters();
+
+            return new Distance()
+            {
+                Value = inMeters.Value / (SystemBodyConstants.SunRadius * 1000),
+                Units = DistanceUnits.StellarRadius
+            };
+        }
+
         public static Distance To(this Distance distance, DistanceUnits unit)
         {
             if (distance.Units.Equals(unit))
@@ -191,6 +215,8 @@ namespace TravellerUtils.Libraries.Common.Helpers
                     return distance.ToLightYear();
                 case DistanceUnits.Parsec:
                     return distance.ToParsec();
+                case DistanceUnits.StellarRadius:
+                    return distance.ToStellarRadius();
                 default:
                     throw new Exception("Unknown distance units");
             }

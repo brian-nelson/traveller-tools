@@ -37,9 +37,18 @@ namespace TravellerUtils.Libraries.Common.Generators
                 output.Stars.Add(StarGenerator.Generate(3, output.Stars[0]));
             }
             
-            //Generate primary start bodies
-            var systemBodies = SystemBodiesGenerator.Generate(output, 0);
+            //Generate primary star bodies
+            SystemBodiesGenerator.Generate(output, 0);
 
+            if (output.Stars.Count > 1)
+            {
+                SystemBodiesGenerator.Generate(output, 1);
+            }
+
+            if (output.Stars.Count > 2)
+            {
+                SystemBodiesGenerator.Generate(output, starToGenerate: 2);
+            }
 
             return output;
         }

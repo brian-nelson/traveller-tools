@@ -5,12 +5,17 @@ namespace TravellerUtils.Libraries.Common.Objects
 {
     public class Moon : IOrbitingBody, IEnvironmental
     {
+        public Moon()
+        {
+            OrbitingBodies = new Dictionary<short, IOrbitingBody>();
+        }
+
         //IStellarBody
         public short Size { get; set; }
         public string Density { get; set; }
         public Mass Mass { get; set; }
         public Distance Diameter { get; set; }
-        public List<IOrbitingBody> OrbitingBodies { get; set; }
+        public Dictionary<short, IOrbitingBody> OrbitingBodies { get; set; }
 
         //IOrbitingBody
         public short OrbitNumber { get; set; }
@@ -21,7 +26,6 @@ namespace TravellerUtils.Libraries.Common.Objects
                 public double AxialTilt { get; set; }
         public short AxialTiltEffect { get; set; }
 
-
         //IEnvironmental
         public short Atmosphere { get; set; }
         public short Hydrographics { get; set; }
@@ -30,6 +34,7 @@ namespace TravellerUtils.Libraries.Common.Objects
         public double EnergyAbsorptionFactor { get; set; }
         public double GreenhouseFactor { get; set; }
         public double MeanTemperature { get; set; }
-
+        public short MaxPopulation { get; set; }
+        public Seasons Seasons { get; set; }
     }
 }

@@ -8,6 +8,7 @@
         Miles = 3,
         AstronomicalUnit = 4,
         LightYear = 5,
-        Parsec = 6
+        Parsec = 6,
+        StellarRadius = 7
     }
 }

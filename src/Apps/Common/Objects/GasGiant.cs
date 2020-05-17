@@ -7,14 +7,14 @@ namespace TravellerUtils.Libraries.Common.Objects
     {
         public GasGiant()
         {
-            OrbitingBodies = new List<IOrbitingBody>();
+            OrbitingBodies = new Dictionary<short, IOrbitingBody>();
         }
 
         public short Size { get; set; }
         public string Density { get; set; }
         public Mass Mass { get; set; }
         public Distance Diameter { get; set; }
-        public List<IOrbitingBody> OrbitingBodies { get; set; }
+        public Dictionary<short, IOrbitingBody> OrbitingBodies { get; set; }
 
 
         public short OrbitNumber { get; set; }

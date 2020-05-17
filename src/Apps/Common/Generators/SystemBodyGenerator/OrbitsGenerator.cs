@@ -34,7 +34,17 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 
             for (short i = 0; i < SystemConstants.MaxOrbits; i++)
             {
-                Distance orbitalDistance = OrbitRangeGenerator.Generate(i);
+                Distance orbitalDistance;
+
+                if (currentStar == primaryStar
+                    || currentStar == tertiaryStar)           //All tertiary stars are put at far orbit 
+                {
+                    orbitalDistance = OrbitRangeGenerator.Generate(i);
+                }
+                else
+                {
+                    orbitalDistance = CompanionStarOrbitalDistanceGenerator.Generate(primaryStar, secondaryStar, i);
+                }
 
                 Orbit o = new Orbit
                 {
@@ -149,7 +159,15 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
             if (tertiaryStar != null
                 && currentStar == primaryStar)
             {
-                tertiaryStar.OrbitNumber = 99;
+                if (secondaryStar.OrbitNumber == 99)
+                {
+                    tertiaryStar.OrbitNumber = 100;
+                }
+                else
+                {
+                    tertiaryStar.OrbitNumber = 99;
+                }
+                
                 tertiaryStar.OrbitalDistance = FarOrbitDistanceGenerator.Generate();
                 tertiaryStar.OrbitalPeriod = OrbitalPeriodGenerator.Generate(primaryStar, tertiaryStar);
                 tertiaryStar.OrbitEccentricity = OrbitalEccentricityGenerator.Generate();

@@ -6,7 +6,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 {
     public static class SystemBodyGenerator
     {
-        public static ISystemBody Generate(short orbitNumber, Distance orbitalDistance, string occupiedType, 
+        public static IOrbitingBody Generate(short orbitNumber, Distance orbitalDistance, string occupiedType, 
             string orbitType, IStar parentStar, StellarSystem stellarSystem)
         {
             switch (occupiedType)
@@ -19,6 +19,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
                 case OccupiedTypes.Planetoid:
                     break;
                 case OccupiedTypes.Star:
+                    //Do nothing for this.  Should already be done
                     break;
             }
 

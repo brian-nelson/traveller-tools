@@ -10,6 +10,6 @@ namespace TravellerUtils.Libraries.Common.Interfaces
         Mass Mass { get; set; }
         Distance Diameter { get; set; }
 
-        List<IOrbitingBody> OrbitingBodies { get; set; }
+        Dictionary<short, IOrbitingBody> OrbitingBodies { get; set; }
     }
 }

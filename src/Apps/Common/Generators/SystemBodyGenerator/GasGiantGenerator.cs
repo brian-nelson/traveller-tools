@@ -44,9 +44,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
             gasGiant.AxialTilt = AxialTiltGenerator.Generate();
             gasGiant.AxialTiltEffect = TiltEffectGenerator.Generate(gasGiant.AxialTilt);
             
-            var satellites = SatellitesGenerator.Generate(parentStar, gasGiant, combinedLuminosity);
-
-            gasGiant.OrbitingBodies.AddRange(satellites);
+            SatellitesGenerator.Generate(parentStar, gasGiant, combinedLuminosity);
 
             return gasGiant;
         }

@@ -23,6 +23,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
 
             p.OrbitNumber = orbitNumber;
             p.OrbitalDistance = orbitalDistance;
+            p.OrbitalPeriod = OrbitalPeriodGenerator.Generate(parentStar, p);
             p.OrbitEccentricity = OrbitalEccentricityGenerator.Generate();
             p.OrbitFactor = OrbitFactorGenerator.Generate(p);
             p.RotationPeriod = RotationPeriodGenerator.Generate(parentStar.Mass, p.OrbitalDistance);
@@ -48,26 +49,9 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
             p.Seasons = SeasonsGenerator.Generate(p.Size, p.AxialTilt, p.AxialTiltEffect, p.OrbitFactor,
                 p.MeanTemperature, combinedLuminosity, p.OrbitalDistance, p.RotationPeriod, p.Atmosphere);
             
-            var numberOfSatellites = NumberOfSatellitesGenerator.Generate(occupiedType, p.Size);
-            var satellites = SatellitesGenerator.Generate(parentStar, p, combinedLuminosity);
-
-            p.OrbitingBodies.AddRange(satellites);
+            SatellitesGenerator.Generate(parentStar, p, combinedLuminosity);
 
             return p;
         }
-
-        
-
-
-
-
-
-        
-
-        
-
-        
-
-        
     }
 }

@@ -7,7 +7,7 @@ namespace TravellerUtils.Libraries.Common.Objects
     {
         public Star()
         {
-            OrbitingBodies = new List<IOrbitingBody>();
+            OrbitingBodies = new Dictionary<short, IOrbitingBody>();
         }
 
         //ISystemBody
@@ -15,7 +15,7 @@ namespace TravellerUtils.Libraries.Common.Objects
         public string Density { get; set; }
         public Mass Mass { get; set; }
         public Distance Diameter { get; set; }
-        public List<IOrbitingBody> OrbitingBodies { get; set; }
+        public Dictionary<short, IOrbitingBody> OrbitingBodies { get; set; }
 
         //IStar
         public string Classification { get; set; }

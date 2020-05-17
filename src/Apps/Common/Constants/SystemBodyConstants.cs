@@ -12,6 +12,7 @@ namespace TravellerUtils.Libraries.Common.Constants
         public const double EarthMass = 5.972E24;                                        // kg
 
         public const double SunMass = 1.989E30;                                          // kg
+        public const double SunRadius = 695000;                                          // km
 
     }
 }

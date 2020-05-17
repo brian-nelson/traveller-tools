@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TravellerUtils.Libraries.Common.Interfaces;
 
 namespace TravellerUtils.Libraries.Common.Objects
 {
     public class CompanionStar : IStar, IOrbitingBody
     {
+        public CompanionStar()
+        {
+            OrbitingBodies = new Dictionary<short, IOrbitingBody>();
+        }
+
         //ISystemBody
         public short Size { get; set; }
         public string Density { get; set; }
         public Mass Mass { get; set; }
         public Distance Diameter { get; set; }
-        public List<IOrbitingBody> OrbitingBodies { get; set; }
+        public Dictionary<short, IOrbitingBody> OrbitingBodies { get; set; }
 
         //IStar
         public string Classification { get; set; }

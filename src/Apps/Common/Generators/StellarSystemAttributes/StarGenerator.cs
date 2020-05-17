@@ -18,6 +18,7 @@ namespace TravellerUtils.Libraries.Common.Generators.StellarSystemAttributes
                 output.DecimalNotation = StellarDecimalNotationGenerator.Generate(output.Classification, output.LuminosityClass);
                 output.Mass = StellarMassGenerator.Generate(output.Classification, output.DecimalNotation, output.LuminosityClass);
                 output.Luminosity = StellarLuminosityGenerator.Generate(output.Classification, output.DecimalNotation, output.LuminosityClass);
+                output.Diameter = StellarRadiusGenerator.Generate(output.Classification, output.DecimalNotation, output.LuminosityClass) * 2;
             }
             else
             {
@@ -28,9 +29,16 @@ namespace TravellerUtils.Libraries.Common.Generators.StellarSystemAttributes
                 output.DecimalNotation = StellarDecimalNotationGenerator.Generate(output.Classification, output.LuminosityClass);
                 output.Mass = StellarMassGenerator.Generate(output.Classification, output.DecimalNotation, output.LuminosityClass);
                 output.Luminosity = StellarLuminosityGenerator.Generate(output.Classification, output.DecimalNotation, output.LuminosityClass);
+                output.Diameter = StellarRadiusGenerator.Generate(output.Classification, output.DecimalNotation, output.LuminosityClass) * 2;
 
                 var companion = (CompanionStar)output;
                 companion.OrbitNumber = CompanionStarOrbitGenerator.Generate();
+
+                if (primary.OrbitingBodies.ContainsKey(companion.OrbitNumber))
+                {
+                    companion.OrbitNumber += 1;
+                    primary.OrbitingBodies.Add(companion.OrbitNumber, companion);
+                }
             }
 
             return output;

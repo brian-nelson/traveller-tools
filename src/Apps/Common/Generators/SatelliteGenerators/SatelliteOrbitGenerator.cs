@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TravellerUtils.Libraries.Common.Helpers;
+﻿using TravellerUtils.Libraries.Common.Helpers;
 
 namespace TravellerUtils.Libraries.Common.Generators.SatelliteGenerators
 {

@@ -8,7 +8,12 @@ namespace TravellerUtils.Libraries.Common.Objects
         public double Value { get; set; }
         public DistanceUnits Units { get; set; }
 
-
+        public Distance(double value, DistanceUnits units)
+        {
+            Value = value;
+            Units = units;
+        }
+        
         public static Distance operator +(Distance a, Distance b)
         {
             Distance tempB = b.To(a.Units);
@@ -33,6 +38,20 @@ namespace TravellerUtils.Libraries.Common.Objects
             };
 
             return output;
+        }
+
+        public static bool operator >(Distance a, Distance b)
+        {
+            Distance tempB = b.To(a.Units);
+
+            return a.Value > tempB.Value;
+        }
+
+        public static bool operator <(Distance a, Distance b)
+        {
+            Distance tempB = b.To(a.Units);
+
+            return a.Value < tempB.Value;
         }
 
         public static Distance operator /(Distance a, double divisor)

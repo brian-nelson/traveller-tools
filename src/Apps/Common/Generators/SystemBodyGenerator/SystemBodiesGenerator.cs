@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TravellerUtils.Libraries.Common.Constants;
 using TravellerUtils.Libraries.Common.Interfaces;
 using TravellerUtils.Libraries.Common.Objects;
@@ -12,7 +10,7 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
         public static List<ISystemBody> Generate(StellarSystem stellarSystem, int starToGenerate)
         {
             var star = stellarSystem.Stars[starToGenerate - 1];
-            var orbits = OrbitsGenerator.Generate(stellarSystem);
+            var orbits = OrbitsGenerator.Generate(stellarSystem, starToGenerate);
 
             List<ISystemBody> output = new List<ISystemBody>();
 
@@ -50,7 +48,8 @@ namespace TravellerUtils.Libraries.Common.Generators.SystemBodyGenerator
                 {
                     var systemBody = SystemBodyGenerator.Generate((short)i, o.OrbitalDistance, o.OccupiedType, o.OrbitType,
                         star, stellarSystem);
-                    output.Add(systemBody);
+
+                    star.OrbitingBodies.Add(systemBody.OrbitNumber, systemBody);
                 }
             }
 

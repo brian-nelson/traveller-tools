@@ -1,4 +1,6 @@
-﻿namespace TravellerUtils.Libraries.Common.Interfaces
+﻿using TravellerUtils.Libraries.Common.Objects;
+
+namespace TravellerUtils.Libraries.Common.Interfaces
 {
     public interface IEnvironmental
     {
@@ -10,6 +12,7 @@
         double EnergyAbsorptionFactor { get; set; }
         double GreenhouseFactor { get; set; }
         double MeanTemperature { get; set; }
-
+        short MaxPopulation { get; set; }
+        Seasons Seasons { get; set; }
     }
 }
