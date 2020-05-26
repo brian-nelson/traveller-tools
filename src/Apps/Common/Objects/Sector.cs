@@ -1,27 +1,19 @@
-﻿namespace TravellerUtils.Libraries.Common.Objects
-{
-    public class Sector
-    {
-        private readonly SubSector[,] m_SubSectors;
+﻿using System;
+using TravellerUtils.Libraries.Common.Database;
+using TravellerUtils.Libraries.Common.Interfaces;
 
+namespace TravellerUtils.Libraries.Common.Objects
+{
+    public class Sector : IDatabaseObject, IHasCoordinates
+    {
         public Sector()
         {
-            m_SubSectors = new SubSector[4,4];
+            Id = Guid.NewGuid();
         }
 
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
-
-        public SubSector Get(int x, int y)
-        {
-            //TODO - Validate x, y
-            return m_SubSectors[x, y];
-        }
-
-        public void Set(int x, int y, SubSector subSector)
-        {
-            m_SubSectors[x, y] = subSector;
-        }
     }
 }

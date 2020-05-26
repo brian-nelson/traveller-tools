@@ -1,14 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using TravellerUtils.Libraries.Common.Database;
 using TravellerUtils.Libraries.Common.Interfaces;
 
 namespace TravellerUtils.Libraries.Common.Objects
 {
-    public class StellarSystem
+    public class StellarSystem : IDatabaseObject, IHasCoordinates
     {
         public StellarSystem()
         {
             Stars = new List<IStar>();
+
+            Id = Guid.NewGuid();
         }
+
+        public Guid Id { get; set; }
+
+        public Guid SubSectorId { get; set; }
+
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -24,5 +33,6 @@ namespace TravellerUtils.Libraries.Common.Objects
         public double CombinedLuminosity { get; set; }
         
         public List<IStar> Stars { get; set; }
+        
     }
 }
